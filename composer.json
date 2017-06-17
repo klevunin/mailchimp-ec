@@ -1,0 +1,22 @@
+{
+    "name": "klev/mailchimp-ec",
+    "description": "E-commerce Stores php",
+    "type": "library",
+    "license": "MIT",
+    "version": "1.0.0",
+    "authors": [
+        {
+            "name": "Kirill Levunin",
+            "email": "klevunin@gmail.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {
+        "drewm/mailchimp-api": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Klev\\MailchimpEC\\": "src"
+        }
+    }
+}
