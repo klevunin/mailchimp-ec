@@ -22,13 +22,19 @@ class Product
     function __construct($data, $methods = 'Reade',$store_id,$api_key_mailchimp)
     {
         if (!isset($data['id'])) {
-            return 'ERROR: No DATA ID product http://developer.mailchimp.com/documentation/mailchimp/reference/ecommerce/stores/products/';
+            throw new Exception(
+                'ERROR: No DATA ID product http://developer.mailchimp.com/documentation/mailchimp/reference/ecommerce/stores/products/'
+            );
         }
         if (!isset($data['title'])) {
-            return 'ERROR: No title product http://developer.mailchimp.com/documentation/mailchimp/reference/ecommerce/stores/products/';
+            throw new Exception(
+                'ERROR: No title product http://developer.mailchimp.com/documentation/mailchimp/reference/ecommerce/stores/products/'
+            );
         }
         if (!isset($data['variants'])) {
-            return 'ERROR: No variants product http://developer.mailchimp.com/documentation/mailchimp/reference/ecommerce/stores/products/';
+            throw new Exception(
+                'ERROR: No variants product http://developer.mailchimp.com/documentation/mailchimp/reference/ecommerce/stores/products/'
+            );
         }
 
         if (is_null($methods)) {
