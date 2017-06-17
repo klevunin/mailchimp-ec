@@ -33,6 +33,8 @@ class Product
             $result = $MailChimp->get("/ecommerce/stores/" . $store_id . "/products/testdf", [
             ]);
 
+        } else {
+            print '!'.$methods;
         }
 
 
