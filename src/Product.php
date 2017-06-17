@@ -53,7 +53,7 @@ class Product
                 print_r($result);
             } else {
                 //товар есть обновим товар
-                $result = editProduct($MailChimp);
+                $result = $this->editProduct($MailChimp);
                 print '<pre>';
                 print_r($result);
             }
@@ -62,11 +62,11 @@ class Product
 
         } else {
             if ($methods == 'Create') {
-                $result = createProduct($MailChimp);
+                $result = $this->createProduct($MailChimp);
             } elseif ($methods == 'Edit') {
-                $result = editProduct($MailChimp);
+                $result = $this->editProduct($MailChimp);
             } elseif ($methods == 'Delete') {
-                $result = deleteProduct($MailChimp);
+                $result = $this->deleteProduct($MailChimp);
             }
 
         }
