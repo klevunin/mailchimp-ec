@@ -47,7 +47,7 @@ class Product
             //проверим возможно продукт уже существует
             $result = $this->readProduct($MailChimp);
 
-            if ($result['status'] == 404) {
+            if ($result['id'] == $this->data['id']) {
                 //товар есть обновим товар
                 $result = $this->editProduct($MailChimp);
             } else {
