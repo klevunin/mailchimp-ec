@@ -32,7 +32,7 @@ class Product
         }
 
         if (is_null($methods)) {
-            $methods ='Create';
+            $methods ='Read';
         }
 
 
@@ -78,24 +78,44 @@ class Product
     function readProduct($MailChimp){
         $result = $MailChimp->get("/ecommerce/stores/" . $this->store_id . "/products/".$this->data['id'], [
         ]);
+
+
+
+        print '<pre>';
+        print_r( $this->data);
+        print_r($result);
     }
 
     function createProduct($MailChimp){
-        $result = $MailChimp->post("/ecommerce/stores/" . $this->store_id . "/products/".$this->data['id'], [
-            ".$this->data."
-        ]);
+        $result = $MailChimp->post("/ecommerce/stores/" . $this->store_id . "/products",
+            $this->data
+        );
+
+        print '<pre>';
+        print_r( $this->data);
+        print_r($result);
     }
 
     function editProduct($MailChimp){
-        $result = $MailChimp->patch("/ecommerce/stores/" . $this->store_id . "/products/".$this->data['id'], [
-            ".$this->data."
-        ]);
+        $result = $MailChimp->patch("/ecommerce/stores/" . $this->store_id . "/products/".$this->data['id'],
+            $this->data
+        );
+
+
+        print '<pre>';
+        print_r( $this->data);
+        print_r($result);
 
     }
 
     function deleteProduct($MailChimp){
         $result = $MailChimp->delete("/ecommerce/stores/" . $this->store_id . "/products/".$this->data['id'], [
         ]);
+
+
+        print '<pre>';
+        print_r( $this->data);
+        print_r($result);
     }
 
 
