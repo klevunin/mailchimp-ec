@@ -35,7 +35,6 @@ class Product
             $methods ='Read';
         }
 
-
         $MailChimp = new MailChimp($api_key_mailchimp);
 
         $this->data=$data;
@@ -54,9 +53,6 @@ class Product
                 //Пробую создать товар
                 $result = $this->createProduct($MailChimp);
             }
-
-
-
         } else {
             if ($methods == 'Create') {
                 $result = $this->createProduct($MailChimp);
@@ -65,55 +61,33 @@ class Product
             } elseif ($methods == 'Delete') {
                 $result = $this->deleteProduct($MailChimp);
             }
-
         }
-
-
-
     }
 
     function readProduct($MailChimp){
         $result = $MailChimp->get("/ecommerce/stores/" . $this->store_id . "/products/".$this->data['id'], [
         ]);
-
-
-
-        print '<pre>READ!';
-        print_r( $this->data);
-        print_r($result);
+        return $result;
     }
 
     function createProduct($MailChimp){
         $result = $MailChimp->post("/ecommerce/stores/" . $this->store_id . "/products",
             $this->data
         );
-
-        print '<pre>create!';
-        print_r( $this->data);
-        print_r($result);
+        return $result;
     }
 
     function editProduct($MailChimp){
         $result = $MailChimp->patch("/ecommerce/stores/" . $this->store_id . "/products/".$this->data['id'],
             $this->data
         );
-
-
-        print '<pre>edit!';
-        print_r( $this->data);
-        print_r($result);
-
+        return $result;
     }
 
     function deleteProduct($MailChimp){
         $result = $MailChimp->delete("/ecommerce/stores/" . $this->store_id . "/products/".$this->data['id'], [
         ]);
-
-
-        print '<pre>delete!';
-        print_r( $this->data);
-        print_r($result);
+        return $result;
     }
-
 
 }
