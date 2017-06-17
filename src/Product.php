@@ -48,14 +48,11 @@ class Product
             $result = $this->readProduct($MailChimp);
 
             if ($result['status'] == 404) {
-                //товар нет или ошибка. Пробую создать товар
-                print '<pre>';
-                print_r($result);
-            } else {
                 //товар есть обновим товар
                 $result = $this->editProduct($MailChimp);
-                print '<pre>';
-                print_r($result);
+            } else {
+                //Пробую создать товар
+                $result = $this->createProduct($MailChimp);
             }
 
 
@@ -81,7 +78,7 @@ class Product
 
 
 
-        print '<pre>';
+        print '<pre>READ!';
         print_r( $this->data);
         print_r($result);
     }
@@ -91,7 +88,7 @@ class Product
             $this->data
         );
 
-        print '<pre>';
+        print '<pre>create!';
         print_r( $this->data);
         print_r($result);
     }
@@ -102,7 +99,7 @@ class Product
         );
 
 
-        print '<pre>';
+        print '<pre>edit!';
         print_r( $this->data);
         print_r($result);
 
@@ -113,7 +110,7 @@ class Product
         ]);
 
 
-        print '<pre>';
+        print '<pre>delete!';
         print_r( $this->data);
         print_r($result);
     }
