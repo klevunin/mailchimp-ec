@@ -3,7 +3,7 @@
 namespace Klev\MailchimpEC\Request;
 
 use \DrewM\MailChimp\MailChimp;
-use Klev\MailchimpEC\MyInterface;
+use \Klev\MailchimpEC\MyInterface\MailchimpECМethod;
 
 class EditCartsPrepareRequest implements MailchimpECМethod
 {

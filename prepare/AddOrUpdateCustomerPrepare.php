@@ -2,7 +2,7 @@
 
 namespace Klev\MailchimpEC\Prepare;
 
-use Klev\MailchimpEC\MyInterface;
+use \Klev\MailchimpEC\MyInterface\MailchimpECPrepare;
 
 class AddOrUpdateCustomerPrepare implements MailchimpECPrepare
 {
