@@ -1,6 +1,6 @@
 <?php
 
-namespace Klev\MailchimpEC;
+namespace Klev\MailchimpEC\Prepare;
 
 
 class DeleteProductsPrepare implements MailchimpECPrepare

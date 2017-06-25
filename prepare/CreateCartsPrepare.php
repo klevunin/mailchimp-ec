@@ -1,6 +1,6 @@
 <?php
 
-namespace Klev\MailchimpEC;
+namespace Klev\MailchimpEC\Prepare\Prepare;
 
 class CreateCartsPrepare implements MailchimpECPrepare
 {

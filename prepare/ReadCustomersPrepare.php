@@ -1,5 +1,5 @@
 <?php
-namespace Klev\MailchimpEC;
+namespace Klev\MailchimpEC\Prepare;
 
 
 class ReadCustomersPrepare implements MailchimpECPrepare
