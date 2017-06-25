@@ -2,6 +2,7 @@
 namespace Klev\MailchimpEC;
 
 
+
 interface MailchimpECPrepare
 {
     /**
