@@ -8,7 +8,7 @@ use \Klev\MailchimpEC\MyInterface\MailchimpECМethod;
 
 class ReadCartsRequest implements MailchimpECМethod
 {
-    public function request($data = array(), $path = array(), $apikey)
+    public function request($data = array(), $path = array())
     {
         try {
 

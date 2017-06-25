@@ -8,7 +8,7 @@ use \Klev\MailchimpEC\MyInterface\MailchimpECМethod;
 
 class EditProductsRequest implements MailchimpECМethod
 {
-    public function request($data = array(), $path = array(), $apikey)
+    public function request($data = array(), $path = array())
     {
         try {
 
