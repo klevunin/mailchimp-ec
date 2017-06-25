@@ -5,7 +5,7 @@ namespace Klev\MailchimpEC\Request;
 use \DrewM\MailChimp\MailChimp;
 use \Klev\MailchimpEC\MyInterface\MailchimpECМethod;
 
-class AddOrUpdateCustomerRequest implements MailchimpECМethod
+class AddOrUpdateSubscriberRequest implements MailchimpECМethod
 {
 
     public function request($data = array(),$path = array())
@@ -18,13 +18,10 @@ class AddOrUpdateCustomerRequest implements MailchimpECМethod
                 throw new \Exception('ERROR: No apikey');
             }
 
-            if (!defined('STORE_ID')) {
-                throw new \Exception('ERROR: No apikey');
+            if (!defined('LIST_ID_STORE_SKIMIR')) {
+                throw new \Exception('ERROR: No LIST_ID_STORE_SKIMIR');
             }
 
-            if (!isset($data['id'])) {
-                throw new \Exception('ERROR: No customer_id');
-            }
 
             if (!isset($data)) {
                 throw new \Exception('ERROR: No data array');
@@ -36,15 +33,12 @@ class AddOrUpdateCustomerRequest implements MailchimpECМethod
 
             $MailChimp = new MailChimp(API_KEY_MAILCHIMP);
 
-            $result = $MailChimp->put("/ecommerce/stores/" . STORE_ID . "/customers/" . $path['customer_id'], $data);
+            $subscriber_hash = $MailChimp->subscriberHash($data['email_address']);
 
-            print STORE_ID.'<hr>';
-            print $path['customer_id'].'<hr>';
-            print '<pre>';
-            print_r($data);
-            print_r($result);
+            $result = $MailChimp->put("/lists/" . LIST_ID_STORE_SKIMIR . "/members/" . $subscriber_hash, $data);
 
-            if ((isset($result['id'])) AND ($result['id'] == $data['id'])) {
+
+            if ((isset($result['email_address'])) AND ($result['email_address'] == $data['email_address'])) {
                 return $result;
             }
 

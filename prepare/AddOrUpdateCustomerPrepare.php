@@ -13,8 +13,8 @@ class AddOrUpdateCustomerPrepare implements MailchimpECPrepare
         try {
             if (!isset($data['id'])) {
                 throw new \Exception('ERROR: No id');
-            } elseif(!is_string($data['id'])) {
-                $data['id']=(string)$data['id'];
+            } elseif (!is_string($data['id'])) {
+                $data['id'] = (string)$data['id'];
             }
 
             if (!isset($data['email_address'])) {
@@ -25,12 +25,22 @@ class AddOrUpdateCustomerPrepare implements MailchimpECPrepare
                 }
             }
 
+            if ((isset($data['company'])) AND ($data['company'] == '')) {
+                print '<pre>';
+                print_r($data);
+                unset($data['company']);
+            }
+
+            if ((isset($data['total_spent'])) AND ($data['total_spent'] == '')) {
+                unset($data['total_spent']);
+            }
+
             if (isset($data['opt_in_status'])) {
                 if (!is_bool($data['opt_in_status'])) {
-                    $data['opt_in_status']=(bool)$data['opt_in_status'];
+                    $data['opt_in_status'] = (bool)$data['opt_in_status'];
                 }
             } else {
-                $data['opt_in_status']=(bool)FALSE;
+                $data['opt_in_status'] = (bool)FALSE;
             }
 
 //            if ((isset($data['company'])) AND (!is_string($data['company']))) {
@@ -46,16 +56,19 @@ class AddOrUpdateCustomerPrepare implements MailchimpECPrepare
 //            }
 
             if ((isset($data['orders_count'])) AND (!is_int($data['orders_count']))) {
-                $data['orders_count']=(int)$data['orders_count'];
+                $data['orders_count'] = (int)$data['orders_count'];
             }
 
             if ((isset($data['total_spent'])) AND (!is_numeric($data['total_spent']))) {
                 unset($data['total_spent']);
             }
 
-            if ((isset($data['address'])) AND (!is_object ($data['address']))) {
-                $data['address']=(object)$data['address'];
+            if ((isset($data['address'])) AND (!is_object($data['address']))) {
+                $data['address'] = (object)$data['address'];
             }
+
+
+
 
             return $data;
 
