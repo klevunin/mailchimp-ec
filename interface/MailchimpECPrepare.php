@@ -1,5 +1,5 @@
 <?php
-namespace Klev\MailchimpEC;
+namespace Klev\MailchimpEC\MyInterface;
 
 interface MailchimpECPrepare
 {

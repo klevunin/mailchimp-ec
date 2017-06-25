@@ -20,7 +20,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Klev\\MailchimpEC\\": "interface",
+            "Klev\\MailchimpEC\\\MyInterface\\": "interface",
             "Klev\\MailchimpEC\\Prepare\\": "prepare",
             "Klev\\MailchimpEC\\Request\\": "request"
         }

@@ -7,7 +7,7 @@ use \DrewM\MailChimp\MailChimp;
 
 class EditCartsPrepareRequest implements MailchimpECМethod
 {
-    public function request($data = array(), $path = array(), $apikey)
+    public function request($data = array(), $path = array())
     {
         try {
 
