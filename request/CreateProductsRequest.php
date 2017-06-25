@@ -8,25 +8,28 @@ use \DrewM\MailChimp\MailChimp;
 
 class CreateProductsRequest implements MailchimpECМethod
 {
-    public function request($data = array(), $path = array(), $apikey)
+
+    public function request($data = array(),$path = array())
     {
         try {
 
-            if ((!isset($apikey)) OR ($apikey == '')) {
+            require_once __DIR__.'/../config/config.php';
+
+            if (!defined('API_KEY_MAILCHIMP')) {
                 throw new \Exception('ERROR: No apikey');
             }
 
-            if (!isset($path['store_id'])) {
-                throw new \Exception('ERROR: No store_id');
+            if (!defined('STORE_ID')) {
+                throw new \Exception('ERROR: No apikey');
             }
 
             if (!isset($data)) {
                 throw new \Exception('ERROR: No data array');
             }
 
-            $MailChimp = new MailChimp($apikey);
+            $MailChimp = new MailChimp(API_KEY_MAILCHIMP);
 
-            $result = $MailChimp->post("/ecommerce/stores/" . $path['store_id'] . "/products",$data);
+            $result = $MailChimp->post("/ecommerce/stores/" . STORE_ID . "/products",$data);
 
             if ((isset($result['id'])) AND ($result['id'] == $data['id'])) {
                 return $result;

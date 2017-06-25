@@ -11,22 +11,25 @@ class ReadCartsRequest implements MailchimpECМethod
     {
         try {
 
-            if ((!isset($apikey)) OR ($apikey == '')) {
+            require_once __DIR__.'/../config/config.php';
+
+            if (!defined('API_KEY_MAILCHIMP')) {
                 throw new \Exception('ERROR: No apikey');
             }
 
-            if (!isset($path['store_id'])) {
-                throw new \Exception('ERROR: No store_id');
+            if (!defined('STORE_ID')) {
+                throw new \Exception('ERROR: No apikey');
             }
+
 
             if (!isset($path['cart_id'])) {
                 throw new \Exception('ERROR: No cart_id');
             }
 
 
-            $MailChimp = new MailChimp($apikey);
+            $MailChimp = new MailChimp(API_KEY_MAILCHIMP);
 
-            $result = $MailChimp->get("/ecommerce/stores/" . $path['store_id'] . "/carts/".$path['cart_id']);
+            $result = $MailChimp->get("/ecommerce/stores/" . STORE_ID . "/carts/".$path['cart_id']);
 
             if (isset($result['id'])) {
                 return $result;

@@ -11,12 +11,15 @@ class EditCartsPrepareRequest implements MailchimpECМethod
     {
         try {
 
-            if ((!isset($apikey)) OR ($apikey == '')) {
+
+            require_once __DIR__.'/../config/config.php';
+
+            if (!defined('API_KEY_MAILCHIMP')) {
                 throw new \Exception('ERROR: No apikey');
             }
 
-            if (!isset($path['store_id'])) {
-                throw new \Exception('ERROR: No store_id');
+            if (!defined('STORE_ID')) {
+                throw new \Exception('ERROR: No apikey');
             }
 
             if (!isset($path['cart_id'])) {
@@ -27,9 +30,9 @@ class EditCartsPrepareRequest implements MailchimpECМethod
                 throw new \Exception('ERROR: No data array');
             }
 
-            $MailChimp = new MailChimp($apikey);
+            $MailChimp = new MailChimp(API_KEY_MAILCHIMP);
 
-            $result = $MailChimp->patch("/ecommerce/stores/" . $path['store_id'] . "/carts/".$path['cart_id'],$data);
+            $result = $MailChimp->patch("/ecommerce/stores/" . STORE_ID . "/carts/".$path['cart_id'],$data);
 
             if ((isset($result['id'])) AND ($result['id'] == $data['id'])) {
                 return $result;

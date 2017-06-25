@@ -10,21 +10,23 @@ class EditProductsRequest implements MailchimpECМethod
     {
         try {
 
-            if ((!isset($apikey)) OR ($apikey == '')) {
+            require_once __DIR__.'/../config/config.php';
+
+            if (!defined('API_KEY_MAILCHIMP')) {
                 throw new \Exception('ERROR: No apikey');
             }
 
-            if (!isset($path['store_id'])) {
-                throw new \Exception('ERROR: No store_id');
+            if (!defined('STORE_ID')) {
+                throw new \Exception('ERROR: No apikey');
             }
 
             if (!isset($path['product_id'])) {
                 throw new \Exception('ERROR: No product_id');
             }
 
-            $MailChimp = new MailChimp($apikey);
+            $MailChimp = new MailChimp(API_KEY_MAILCHIMP);
 
-            $result = $MailChimp->patch("/ecommerce/stores/" . $path['store_id'] . "/products/" . $path['product_id'],$data);
+            $result = $MailChimp->patch("/ecommerce/stores/" . STORE_ID . "/products/" . $path['product_id'],$data);
 
             if (!isset($result['status'])) {
                 return $result;

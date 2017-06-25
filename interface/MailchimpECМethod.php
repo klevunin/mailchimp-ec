@@ -5,7 +5,5 @@ namespace Klev\MailchimpEC;
 
 interface MailchimpECМethod
 {
-
-    public function request($data = array(),$path = array(), $apikey);
-
+    public function request($data = array(),$path = array());
 }
