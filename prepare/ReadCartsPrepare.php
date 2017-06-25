@@ -1,6 +1,7 @@
 <?php
 namespace Klev\MailchimpEC\Prepare;
 
+use Klev\MailchimpEC\MyInterface;
 
 class ReadCartsPrepare implements MailchimpECPrepare
 {

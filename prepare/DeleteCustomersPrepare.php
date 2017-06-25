@@ -1,6 +1,8 @@
 <?php
 namespace Klev\MailchimpEC\Prepare;
 
+use Klev\MailchimpEC\MyInterface;
+
 
 class DeleteCustomersPrepare implements MailchimpECPrepare
 {

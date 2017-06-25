@@ -3,6 +3,7 @@
 namespace Klev\MailchimpEC\Request;
 
 use \DrewM\MailChimp\MailChimp;
+use Klev\MailchimpEC\MyInterface;
 
 
 class ReadCartsRequest implements MailchimpECМethod

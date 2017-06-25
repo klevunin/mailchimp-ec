@@ -2,6 +2,8 @@
 
 namespace Klev\MailchimpEC\Prepare;
 
+use Klev\MailchimpEC\MyInterface;
+
 
 class CreateProductsPrepare implements MailchimpECPrepare
 {
