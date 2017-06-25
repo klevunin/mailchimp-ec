@@ -3,7 +3,7 @@
     "description": "E-commerce Stores php",
     "type": "library",
     "license": "MIT",
-    "version": "1.0.0",
+    "version": "2.0.0",
     "authors": [
         {
             "name": "Kirill Levunin",
@@ -16,7 +16,9 @@
     },
     "autoload": {
         "psr-4": {
-            "Klev\\MailchimpEC\\": "src"
+            "Klev\\MailchimpEC\\": "interface",
+            "Klev\\MailchimpEC\\": "prepare",
+            "Klev\\MailchimpEC\\": "request"
         }
     }
 }
