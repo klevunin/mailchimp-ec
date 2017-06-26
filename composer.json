@@ -12,11 +12,13 @@
     ],
     "minimum-stability": "stable",
     "require": {
-        "drewm/mailchimp-api": "*"
+        "drewm/mailchimp-api": "*",
+        "klev/sypex-geo": "*"
     },
     "require-dev": {
         "phpunit/phpunit": "4.0.*",
-        "vlucas/phpdotenv": "^2.0"
+        "vlucas/phpdotenv": "^2.0",
+        "klev/sypex-geo": "dev-master"
     },
     "autoload": {
         "psr-4": {

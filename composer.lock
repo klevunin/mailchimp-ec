@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "ac63049c36b8bfff7d901700b7743023",
+    "content-hash": "8fd29c34be14a5ae3a445b5bb345d1c1",
     "packages": [
         {
             "name": "drewm/mailchimp-api",
@@ -48,6 +48,44 @@
             "description": "Super-simple, minimum abstraction MailChimp API v3 wrapper",
             "homepage": "https://github.com/drewm/mailchimp-api",
             "time": "2017-02-16T13:24:20+00:00"
+        },
+        {
+            "name": "klev/sypex-geo",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/klevunin/sxgeo.git",
+                "reference": "2c0ce0dcc9f5eb0563ebd081e3cd0364a50c6862"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/klevunin/sxgeo/zipball/2c0ce0dcc9f5eb0563ebd081e3cd0364a50c6862",
+                "reference": "2c0ce0dcc9f5eb0563ebd081e3cd0364a50c6862",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Klev\\SypexGeo\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Kirill Levunin",
+                    "email": "klevunin@gmail.com"
+                }
+            ],
+            "description": "sypex.net api php",
+            "keywords": [
+                "geoip",
+                "sxgeo",
+                "sypex"
+            ],
+            "time": "2017-06-14 13:22:25"
         }
     ],
     "packages-dev": [
@@ -731,7 +769,9 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "klev/sypex-geo": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": [],

@@ -45,5 +45,5 @@ class AddOrUpdateSubscriberRequest implements MailchimpECМethod
         } catch (Exception $e) {
             echo $e->getMessage(), "\n";
         }
-    } 
+    }
 }

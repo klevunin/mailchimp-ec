@@ -24,7 +24,6 @@ class AddOrUpdateSubscriberPrepare implements MailchimpECPrepare
 
             if (!isset($data['status_if_new'])) {
                 $data['status_if_new'] = $data['status'];
-                unset($data['status']);
             }
 
             if ((isset($data['merge_fields'])) AND (!is_object($data['merge_fields']))) {
