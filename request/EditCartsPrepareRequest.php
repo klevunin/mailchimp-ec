@@ -37,7 +37,7 @@ class EditCartsPrepareRequest implements MailchimpECМethod
 
 
             if ((isset($result['id'])) AND ($result['id'] == $data['id'])) {
-                return $result;
+                return json_encode($result);
             } elseif ($result['status'] == 405) {
                 $CreateCarts = new \Klev\MailchimpEC\Prepare\CreateCartsPrepare();
                 $data_CreateCarts = $CreateCarts->prepareRequest($data);
@@ -45,8 +45,12 @@ class EditCartsPrepareRequest implements MailchimpECМethod
                 if ($data_CreateCarts) {
                     $CreateOrderRequest = new \Klev\MailchimpEC\Request\CreateCartsRequest();
                     $result = $CreateOrderRequest->request($data_CreateCarts);
+
+
+                    return json_encode($result);
+
                     if ((isset($result['id'])) AND ($result['id'] == $data['id'])) {
-                        return $result;
+                        return json_encode($result);
                     } else {
                         throw new MailchimpECException(json_encode($result));
                     }

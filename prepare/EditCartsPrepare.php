@@ -18,7 +18,8 @@ class EditCartsPrepare implements MailchimpECPrepare
 
             if ((!isset($data['customer']->id)) OR ($data['customer']->id == '')) {
                 throw new MailchimpECException('ERROR: id customer');
-            } 
+            }
+
 
             if ((!isset($data['customer']->email_address)) OR ($data['customer']->email_address == '')) {
                 throw new MailchimpECException('ERROR: email_address customer');

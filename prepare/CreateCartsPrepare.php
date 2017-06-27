@@ -10,6 +10,8 @@ class CreateCartsPrepare implements MailchimpECPrepare
     public function prepareRequest($data)
     {
 
+
+
         try {
             if (!isset($data['id'])) {
                 throw new MailchimpECException('ERROR: No id');
@@ -21,7 +23,7 @@ class CreateCartsPrepare implements MailchimpECPrepare
                 $data['customer']=(object)$data['customer'];
             }
 
-            if ((!isset($data['customer']->id)) OR ($data['customer']->id = '')) {
+            if ((!isset($data['customer']->id)) OR ($data['customer']->id == '')) {
                 throw new MailchimpECException('ERROR: No id customer');
             }
 
