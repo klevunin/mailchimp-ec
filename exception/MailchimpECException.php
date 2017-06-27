@@ -11,6 +11,7 @@ class MailchimpECException extends \Exception
 
         /**
          * DRUPAL
+         * https://api.drupal.org/api/drupal/includes%21bootstrap.inc/function/watchdog/7.x
          */
         if (function_exists('watchdog')) {
             watchdog('MailchimpEC', '%message', array(
