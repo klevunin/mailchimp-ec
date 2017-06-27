@@ -3,7 +3,7 @@
 namespace Klev\MailchimpEC\Prepare;
 
 use \Klev\MailchimpEC\MyInterface\MailchimpECPrepare;
-
+use \Klev\MailchimpEC\Myexception\MailchimpECException;
 
 class ReadSubscriberPrepare implements MailchimpECPrepare
 {
@@ -12,16 +12,16 @@ class ReadSubscriberPrepare implements MailchimpECPrepare
         try {
 
             if (!isset($data['email_address'])) {
-                throw new \Exception('ERROR: No email_address');
+                throw new MailchimpECException('ERROR: No email_address');
             } else {
                 if (!filter_var($data['email_address'], FILTER_VALIDATE_EMAIL)) {
-                    throw new \Exception('ERROR: No email_address VALIDATE');
+                    throw new MailchimpECException('ERROR: No email_address VALIDATE');
                 }
             }
-
             return $data;
-        } catch (Exception $e) {
-            echo $e->getMessage(), "\n";
+        } catch (MailchimpECException $e) {
+            $e->MailchimpECLog();
+            return null;
         }
     }
 }

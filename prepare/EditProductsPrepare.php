@@ -3,6 +3,7 @@
 namespace Klev\MailchimpEC\Prepare;
 
 use \Klev\MailchimpEC\MyInterface\MailchimpECPrepare;
+use \Klev\MailchimpEC\Myexception\MailchimpECException;
 
 class EditProductsPrepare implements MailchimpECPrepare
 {
@@ -15,7 +16,7 @@ class EditProductsPrepare implements MailchimpECPrepare
 
                 foreach ($data['variants'] as $key => $line) {
                     if ((isset($line['price'])) AND ((!is_numeric($line['price'])))) {
-                        throw new \Exception('ERROR: price variants');
+                        throw new MailchimpECException('ERROR: price variants');
                     }
 
                     if ((isset($line['inventory_quantity'])) AND (!is_int($line['inventory_quantity']))) {
@@ -29,8 +30,9 @@ class EditProductsPrepare implements MailchimpECPrepare
             }
 
             return $data;
-        } catch (Exception $e) {
-            echo $e->getMessage(), "\n";
+        } catch (MailchimpECException $e) {
+            $e->MailchimpECLog();
+            return null;
         }
     }
 }

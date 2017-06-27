@@ -3,6 +3,7 @@
 namespace Klev\MailchimpEC\Prepare;
 
 use \Klev\MailchimpEC\MyInterface\MailchimpECPrepare;
+use \Klev\MailchimpEC\Myexception\MailchimpECException;
 
 
 class CreateProductsPrepare implements MailchimpECPrepare
@@ -12,13 +13,13 @@ class CreateProductsPrepare implements MailchimpECPrepare
 
         try {
             if (!isset($data['id'])) {
-                throw new \Exception('ERROR: No id');
+                throw new MailchimpECException('ERROR: No id');
             } elseif(!is_string($data['id'])) {
                 $data['id']=(string)$data['id'];
             }
 
             if (!isset($data['title'])) {
-                throw new \Exception('ERROR: No title');
+                throw new MailchimpECException('ERROR: No title');
             }
 
             if ((isset($data['variants'])) AND (!is_array($data['variants']))) {
@@ -28,17 +29,17 @@ class CreateProductsPrepare implements MailchimpECPrepare
             foreach ($data['variants'] as $key => $line) {
 
                 if (!isset($line['id'])) {
-                    throw new \Exception('ERROR: id variants');
+                    throw new MailchimpECException('ERROR: id variants');
                 }
 
                 if (!isset($line['title'])) {
-                    throw new \Exception('ERROR: title variants');
+                    throw new MailchimpECException('ERROR: title variants');
                 }
 
                 if (!isset($line['price'])) {
-                    throw new \Exception('ERROR: price variants');
+                    throw new MailchimpECException('ERROR: price variants');
                 } elseif (!is_numeric($line['price'])) {
-                    throw new \Exception('ERROR: price variants');
+                    throw new MailchimpECException('ERROR: price variants');
                 }
 
                 if ((isset($line['inventory_quantity'])) AND (!is_int($line['inventory_quantity']))) {
@@ -53,15 +54,15 @@ class CreateProductsPrepare implements MailchimpECPrepare
                 foreach ($data['images'] as $key => $line) {
 
                     if (!isset($line['id'])) {
-                        throw new \Exception('ERROR: id images');
+                        throw new MailchimpECException('ERROR: id images');
                     }
 
                     if (!isset($line['url'])) {
-                        throw new \Exception('ERROR: url images');
+                        throw new MailchimpECException('ERROR: url images');
                     }
 
                     if ((isset($line['variant_ids'])) AND (!is_array($line['variant_ids']))) {
-                        throw new \Exception('ERROR: variant_ids images');
+                        throw new MailchimpECException('ERROR: variant_ids images');
                     }
                 }
             }
@@ -69,8 +70,9 @@ class CreateProductsPrepare implements MailchimpECPrepare
             return $data;
 
 
-        } catch (Exception $e) {
-            echo $e->getMessage(), "\n";
+        } catch (MailchimpECException $e) {
+            $e->MailchimpECLog();
+            return null;
         }
 
     }

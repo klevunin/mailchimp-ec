@@ -3,7 +3,7 @@
 namespace Klev\MailchimpEC\Prepare;
 
 use \Klev\MailchimpEC\MyInterface\MailchimpECPrepare;
-
+use \Klev\MailchimpEC\Myexception\MailchimpECException;
 
 class EditCartsPrepare implements MailchimpECPrepare
 {
@@ -37,15 +37,17 @@ class EditCartsPrepare implements MailchimpECPrepare
             }
 
             if (!isset($data['currency_code'])) {
-                throw new \Exception('ERROR: currency_code');
+                throw new MailchimpECException('ERROR: currency_code');
             }
 
-            if ((isset($data['order_total'])) AND (!is_int($data['order_total']))) {
-                throw new \Exception('ERROR: order_total');
+            if ((isset($data['order_total'])) AND (!is_numeric($data['order_total']))) {
+                throw new MailchimpECException('ERROR: order_total');
+            } elseif (!isset($data['order_total']))  {
+                throw new MailchimpECException('ERROR: order_total');
             }
 
             if (!isset($data['order_total'])) {
-                throw new \Exception('ERROR: order_total');
+                throw new MailchimpECException('ERROR: order_total');
             }
 
             if (isset($data['lines'])) {
@@ -53,27 +55,27 @@ class EditCartsPrepare implements MailchimpECPrepare
                 foreach ($data['lines'] as $key => $line) {
 
                     if (!isset($line['id'])) {
-                        throw new \Exception('ERROR: id lines');
+                        throw new MailchimpECException('ERROR: id lines');
                     }
 
                     if (!isset($line['product_id'])) {
-                        throw new \Exception('ERROR: product_id lines');
+                        throw new MailchimpECException('ERROR: product_id lines');
                     }
 
                     if (!isset($line['product_variant_id'])) {
-                        throw new \Exception('ERROR: product_variant_id lines');
+                        throw new MailchimpECException('ERROR: product_variant_id lines');
                     }
 
                     if (!isset($line['quantity'])) {
-                        throw new \Exception('ERROR: quantity lines');
+                        throw new MailchimpECException('ERROR: quantity lines');
                     } elseif (!is_int($line['quantity'])) {
                         $data['lines'][$key]['quantity'] = (int)$line['quantity'];
                     }
 
                     if (!isset($line['price'])) {
-                        throw new \Exception('ERROR: price lines');
+                        throw new MailchimpECException('ERROR: price lines');
                     } elseif (!is_numeric($line['price'])) {
-                        throw new \Exception('ERROR: price lines');
+                        throw new MailchimpECException('ERROR: price lines');
                     }
                 }
             }
@@ -81,9 +83,9 @@ class EditCartsPrepare implements MailchimpECPrepare
             return $data;
 
 
-        } catch (Exception $e) {
-            echo $e->getMessage(), "\n";
+        } catch (MailchimpECException $e) {
+            $e->MailchimpECLog();
+            return null;
         }
-
     }
 }

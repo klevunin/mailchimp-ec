@@ -24,7 +24,8 @@
         "psr-4": {
             "Klev\\MailchimpEC\\MyInterface\\": "interface",
             "Klev\\MailchimpEC\\Prepare\\": "prepare",
-            "Klev\\MailchimpEC\\Request\\": "request"
+            "Klev\\MailchimpEC\\Request\\": "request",
+            "Klev\\MailchimpEC\\Myexception\\": "exception"
         }
     }
 }

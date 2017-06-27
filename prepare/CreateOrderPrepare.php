@@ -5,16 +5,15 @@ namespace Klev\MailchimpEC\Prepare;
 use \Klev\MailchimpEC\MyInterface\MailchimpECPrepare;
 use \Klev\MailchimpEC\Myexception\MailchimpECException;
 
-class CreateCartsPrepare implements MailchimpECPrepare
+class CreateOrderPrepare implements MailchimpECPrepare
 {
     public function prepareRequest($data)
     {
 
         try {
+
             if (!isset($data['id'])) {
                 throw new MailchimpECException('ERROR: No id');
-            } elseif(!is_string($data['id'])) {
-                $data['id']=(string)$data['id'];
             }
 
             if ((isset($data['customer'])) AND (!is_object ($data['customer']))) {
@@ -54,17 +53,11 @@ class CreateCartsPrepare implements MailchimpECPrepare
             }
 
 
-            if ((isset($data['order_total'])) AND (!is_numeric($data['order_total']))) {
-                throw new MailchimpECException('ERROR: order_total');
-            } elseif (!isset($data['order_total'])) {
-                throw new MailchimpECException('ERROR: order_total');
-            }
-
             if (!isset($data['order_total'])) {
                 throw new MailchimpECException('ERROR: order_total');
             }
 
-            if (!isset($data['lines'])) {
+            if ((!isset($data['lines'])) OR (!is_array($data['lines']))) {
                 throw new MailchimpECException('ERROR: lines');
             }
 
@@ -72,14 +65,20 @@ class CreateCartsPrepare implements MailchimpECPrepare
 
                 if (!isset($line['id'])) {
                     throw new MailchimpECException('ERROR: id lines');
+                } else {
+                    $line['id']=(string)$line['id'];
                 }
 
                 if (!isset($line['product_id'])) {
                     throw new MailchimpECException('ERROR: product_id lines');
+                } else {
+                    $line['product_id']=(string)$line['product_id'];
                 }
 
                 if (!isset($line['product_variant_id'])) {
                     throw new MailchimpECException('ERROR: product_variant_id lines');
+                }else {
+                    $line['product_variant_id']=(string)$line['product_variant_id'];
                 }
 
                 if (!isset($line['quantity'])) {
@@ -96,6 +95,7 @@ class CreateCartsPrepare implements MailchimpECPrepare
             }
 
             return $data;
+
 
         } catch (MailchimpECException $e) {
             $e->MailchimpECLog();

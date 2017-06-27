@@ -4,7 +4,7 @@ namespace Klev\MailchimpEC\Request;
 
 use \DrewM\MailChimp\MailChimp;
 use \Klev\MailchimpEC\MyInterface\MailchimpECМethod;
-
+use \Klev\MailchimpEC\Myexception\MailchimpECException;
 
 class CreateProductsRequest implements MailchimpECМethod
 {
@@ -16,15 +16,15 @@ class CreateProductsRequest implements MailchimpECМethod
             require_once __DIR__.'/../config/config.php';
 
             if (!defined('API_KEY_MAILCHIMP')) {
-                throw new \Exception('ERROR: No apikey');
+                throw new MailchimpECException('ERROR: No apikey');
             }
 
             if (!defined('STORE_ID')) {
-                throw new \Exception('ERROR: No apikey');
+                throw new MailchimpECException('ERROR: No apikey');
             }
 
             if (!isset($data)) {
-                throw new \Exception('ERROR: No data array');
+                throw new MailchimpECException('ERROR: No data array');
             }
 
             $MailChimp = new MailChimp(API_KEY_MAILCHIMP);
@@ -33,13 +33,13 @@ class CreateProductsRequest implements MailchimpECМethod
 
             if ((isset($result['id'])) AND ($result['id'] == $data['id'])) {
                 return $result;
+            } else {
+                throw new MailchimpECException(json_encode($result));
             }
 
-        } catch (Exception $e) {
-            echo $e->getMessage(), "\n";
+        } catch (MailchimpECException $e) {
+            $e->MailchimpECLog();
+            return null;
         }
     }
-}
-{
-
 }

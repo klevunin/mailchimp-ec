@@ -4,6 +4,7 @@ namespace Klev\MailchimpEC\Request;
 
 use \DrewM\MailChimp\MailChimp;
 use \Klev\MailchimpEC\MyInterface\MailchimpECМethod;
+use \Klev\MailchimpEC\Myexception\MailchimpECException;
 
 class AddOrUpdateCustomerRequest implements MailchimpECМethod
 {
@@ -19,15 +20,15 @@ class AddOrUpdateCustomerRequest implements MailchimpECМethod
             }
 
             if (!defined('STORE_ID')) {
-                throw new \Exception('ERROR: No apikey');
+                throw new MailchimpECException('ERROR: No apikey');
             }
 
             if (!isset($data['id'])) {
-                throw new \Exception('ERROR: No customer_id');
+                throw new MailchimpECException('ERROR: No customer_id');
             }
 
             if (!isset($data)) {
-                throw new \Exception('ERROR: No data array');
+                throw new MailchimpECException('ERROR: No data array');
             }
 
             if (!isset($path['customer_id'])) {
@@ -38,18 +39,15 @@ class AddOrUpdateCustomerRequest implements MailchimpECМethod
 
             $result = $MailChimp->put("/ecommerce/stores/" . STORE_ID . "/customers/" . $path['customer_id'], $data);
 
-            print STORE_ID.'<hr>';
-            print $path['customer_id'].'<hr>';
-            print '<pre>';
-            print_r($data);
-            print_r($result);
-
             if ((isset($result['id'])) AND ($result['id'] == $data['id'])) {
                 return $result;
+            } else {
+                throw new MailchimpECException(json_encode($result));
             }
 
-        } catch (Exception $e) {
-            echo $e->getMessage(), "\n";
+        } catch (MailchimpECException $e) {
+            $e->MailchimpECLog();
+            return null;
         }
     }
 }

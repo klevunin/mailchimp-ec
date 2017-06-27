@@ -3,7 +3,7 @@
 namespace Klev\MailchimpEC\Prepare;
 
 use \Klev\MailchimpEC\MyInterface\MailchimpECPrepare;
-
+use \Klev\MailchimpEC\Myexception\MailchimpECException;
 
 class ReadProductsPrepare implements MailchimpECPrepare
 {
@@ -11,8 +11,9 @@ class ReadProductsPrepare implements MailchimpECPrepare
     {
         try {
             return $data;
-        } catch (Exception $e) {
-            echo $e->getMessage(), "\n";
+        } catch (MailchimpECException $e) {
+            $e->MailchimpECLog();
+            return null;
         }
     }
 }

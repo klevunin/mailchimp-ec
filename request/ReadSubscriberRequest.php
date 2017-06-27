@@ -4,6 +4,7 @@ namespace Klev\MailchimpEC\Request;
 
 use \DrewM\MailChimp\MailChimp;
 use \Klev\MailchimpEC\MyInterface\MailchimpECМethod;
+use \Klev\MailchimpEC\Myexception\MailchimpECException;
 
 
 class ReadSubscriberRequest implements MailchimpECМethod
@@ -15,15 +16,15 @@ class ReadSubscriberRequest implements MailchimpECМethod
             require_once __DIR__ . '/../config/config.php';
 
             if (!defined('API_KEY_MAILCHIMP')) {
-                throw new \Exception('ERROR: No apikey');
+                throw new MailchimpECException('ERROR: No apikey');
             }
 
             if (!defined('LIST_ID_STORE_SKIMIR')) {
-                throw new \Exception('ERROR: No LIST_ID_STORE_SKIMIR');
+                throw new MailchimpECException('ERROR: No LIST_ID_STORE_SKIMIR');
             }
 
             if (!isset($data['email_address'])) {
-                throw new \Exception('ERROR: No email_address');
+                throw new MailchimpECException('ERROR: No email_address');
             }
 
 
@@ -35,10 +36,13 @@ class ReadSubscriberRequest implements MailchimpECМethod
 
             if ((isset($result['email_address'])) AND ($result['email_address'] == $data['email_address'])) {
                 return $result;
+            } else {
+                throw new MailchimpECException(json_encode($result));
             }
 
-        } catch (Exception $e) {
-            echo $e->getMessage(), "\n";
+        } catch (MailchimpECException $e) {
+            $e->MailchimpECLog();
+            return null;
         }
     }
 }

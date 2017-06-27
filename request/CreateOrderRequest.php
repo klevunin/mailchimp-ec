@@ -1,12 +1,14 @@
 <?php
+
 namespace Klev\MailchimpEC\Request;
 
 use \DrewM\MailChimp\MailChimp;
 use \Klev\MailchimpEC\MyInterface\MailchimpECМethod;
 use \Klev\MailchimpEC\Myexception\MailchimpECException;
 
-class DeleteCartRequest implements MailchimpECМethod
+class CreateOrderRequest implements MailchimpECМethod
 {
+
 
     public function request($data = array(),$path = array())
     {
@@ -22,17 +24,15 @@ class DeleteCartRequest implements MailchimpECМethod
                 throw new MailchimpECException('ERROR: No apikey');
             }
 
-            if ((!isset($path['cart_id'])) AND (isset($data['id']))) {
-                $path['cart_id']=$data['id'];
-            } else {
-                throw new MailchimpECException('ERROR: No cart_id');
+            if (!isset($data)) {
+                throw new MailchimpECException('ERROR: No data array');
             }
 
             $MailChimp = new MailChimp(API_KEY_MAILCHIMP);
 
-            $result = $MailChimp->delete("/ecommerce/stores/" . STORE_ID . "/cart/" . $path['cart_id']);
+            $result = $MailChimp->post("/ecommerce/stores/" . STORE_ID . "/orders",$data);
 
-            if (!isset($result['status'])) {
+            if ((isset($result['id'])) AND ($result['id'] == $data['id'])) {
                 return $result;
             } else {
                 throw new MailchimpECException(json_encode($result));

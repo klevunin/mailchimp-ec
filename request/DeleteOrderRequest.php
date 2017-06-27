@@ -3,6 +3,7 @@ namespace Klev\MailchimpEC\Request;
 
 use \DrewM\MailChimp\MailChimp;
 use \Klev\MailchimpEC\MyInterface\MailchimpECМethod;
+use \Klev\MailchimpEC\Myexception\MailchimpECException;
 
 class DeleteOrderRequest implements MailchimpECМethod
 {
@@ -14,17 +15,17 @@ class DeleteOrderRequest implements MailchimpECМethod
             require_once __DIR__.'/../config/config.php';
 
             if (!defined('API_KEY_MAILCHIMP')) {
-                throw new \Exception('ERROR: No apikey');
+                throw new MailchimpECException('ERROR: No apikey');
             }
 
             if (!defined('STORE_ID')) {
-                throw new \Exception('ERROR: No apikey');
+                throw new MailchimpECException('ERROR: No apikey');
             }
 
             if ((!isset($path['order_id'])) AND (isset($data['id']))) {
                 $path['order_id']=$data['id'];
             } else {
-                throw new \Exception('ERROR: No cart_id');
+                throw new MailchimpECException('ERROR: No cart_id');
             }
 
             $MailChimp = new MailChimp(API_KEY_MAILCHIMP);
@@ -33,10 +34,13 @@ class DeleteOrderRequest implements MailchimpECМethod
 
             if (!isset($result['status'])) {
                 return $result;
+            } else {
+                throw new MailchimpECException(json_encode($result));
             }
 
-        } catch (Exception $e) {
-            echo $e->getMessage(), "\n";
+        } catch (MailchimpECException $e) {
+            $e->MailchimpECLog();
+            return null;
         }
     }
 }

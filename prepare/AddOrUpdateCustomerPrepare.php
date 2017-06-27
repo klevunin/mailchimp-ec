@@ -3,6 +3,7 @@
 namespace Klev\MailchimpEC\Prepare;
 
 use \Klev\MailchimpEC\MyInterface\MailchimpECPrepare;
+use \Klev\MailchimpEC\Myexception\MailchimpECException;
 
 class AddOrUpdateCustomerPrepare implements MailchimpECPrepare
 {
@@ -12,22 +13,20 @@ class AddOrUpdateCustomerPrepare implements MailchimpECPrepare
 
         try {
             if (!isset($data['id'])) {
-                throw new \Exception('ERROR: No id');
+                throw new MailchimpECException('ERROR: No id');
             } elseif (!is_string($data['id'])) {
                 $data['id'] = (string)$data['id'];
             }
 
             if (!isset($data['email_address'])) {
-                throw new \Exception('ERROR: No email_address');
+                throw new MailchimpECException('ERROR: No email_address');
             } else {
                 if (!filter_var($data['email_address'], FILTER_VALIDATE_EMAIL)) {
-                    throw new \Exception('ERROR: No email_address VALIDATE');
+                    throw new MailchimpECException('ERROR: No email_address VALIDATE');
                 }
             }
 
             if ((isset($data['company'])) AND ($data['company'] == '')) {
-                print '<pre>';
-                print_r($data);
                 unset($data['company']);
             }
 
@@ -43,17 +42,6 @@ class AddOrUpdateCustomerPrepare implements MailchimpECPrepare
                 $data['opt_in_status'] = (bool)FALSE;
             }
 
-//            if ((isset($data['company'])) AND (!is_string($data['company']))) {
-//                $data['company']=(string)$data['company'];
-//            }
-//
-//            if ((isset($data['first_name'])) AND (!is_string($data['first_name']))) {
-//                $data['first_name']=(string)$data['first_name'];
-//            }
-//
-//            if ((isset($data['last_name'])) AND (!is_string($data['last_name']))) {
-//                $data['last_name']=(string)$data['last_name'];
-//            }
 
             if ((isset($data['orders_count'])) AND (!is_int($data['orders_count']))) {
                 $data['orders_count'] = (int)$data['orders_count'];
@@ -67,14 +55,11 @@ class AddOrUpdateCustomerPrepare implements MailchimpECPrepare
                 $data['address'] = (object)$data['address'];
             }
 
-
-
-
             return $data;
 
-
-        } catch (Exception $e) {
-            echo $e->getMessage(), "\n";
+        } catch (MailchimpECException $e) {
+            $e->MailchimpECLog();
+            return null;
         }
 
     }
