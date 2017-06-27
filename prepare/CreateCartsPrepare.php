@@ -21,11 +21,11 @@ class CreateCartsPrepare implements MailchimpECPrepare
                 $data['customer']=(object)$data['customer'];
             }
 
-            if (!isset($data['customer']->id)) {
+            if ((!isset($data['customer']->id)) OR ($data['customer']->id = '')) {
                 throw new MailchimpECException('ERROR: No id customer');
             }
 
-            if ((isset($data['email_address'])) AND (!filter_var($data['email_address'], FILTER_VALIDATE_EMAIL))) {
+            if ((isset($data['customer']->email_address)) AND (!filter_var($data['customer']->email_address, FILTER_VALIDATE_EMAIL))) {
                 throw new MailchimpECException('ERROR: No email_address VALIDATE');
             }
 
@@ -95,9 +95,11 @@ class CreateCartsPrepare implements MailchimpECPrepare
                 }
             }
 
+
+
             return $data;
 
-        } catch (MailchimpECException $e) {
+        } catch (\Klev\MailchimpEC\Myexception\MailchimpECException $e) {
             $e->MailchimpECLog();
             return null;
         }

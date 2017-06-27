@@ -7,10 +7,10 @@ class MailchimpECException extends \Exception
 
     public function MailchimpECLog(){
 
-        $message=$this->getMessage().'\n'.$this->getCode().'\n'.$this->getFile().'\n'.$this->getLine().'\n';
+        $message=$this->getMessage().' CODE:'.$this->getCode().' FILE:'.$this->getFile().' LINE:'.$this->getLine();
 
         if (function_exists('watchdog')) {
-            watchdog('mailchimp_ecommerce', '%message', array(
+            watchdog('MailchimpEC', '%message', array(
                 '%message' => $message,
             ), WATCHDOG_ERROR);
         }

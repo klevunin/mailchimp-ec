@@ -32,7 +32,7 @@ class DeleteCartRequest implements MailchimpECМethod
 
             $result = $MailChimp->delete("/ecommerce/stores/" . STORE_ID . "/cart/" . $path['cart_id']);
 
-            if (!isset($result['status'])) {
+            if ((!isset($result['status'])) OR ($result['status'] == 404)) {
                 return $result;
             } else {
                 throw new MailchimpECException(json_encode($result));
