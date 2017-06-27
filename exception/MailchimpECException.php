@@ -9,6 +9,9 @@ class MailchimpECException extends \Exception
 
         $message=$this->getMessage().' CODE:'.$this->getCode().' FILE:'.$this->getFile().' LINE:'.$this->getLine();
 
+        /**
+         * DRUPAL
+         */
         if (function_exists('watchdog')) {
             watchdog('MailchimpEC', '%message', array(
                 '%message' => $message,
