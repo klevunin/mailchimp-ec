@@ -24,7 +24,7 @@ class EditProductsRequest implements MailchimpECМethod
             }
 
             if (!isset($path['product_id'])) {
-                throw new MailchimpECException('ERROR: No product_id');
+                $path['product_id']=$data['id'];
             }
 
             $MailChimp = new MailChimp(API_KEY_MAILCHIMP);
@@ -34,7 +34,22 @@ class EditProductsRequest implements MailchimpECМethod
             if (!isset($result['status'])) {
                 return $result;
             } else {
-                throw new MailchimpECException(json_encode($result));
+
+                $CreateProducts = new \Klev\MailchimpEC\Prepare\CreateProductsPrepare();
+                $data_CreateProducts = $CreateProducts->prepareRequest($data);
+
+                if ($data_CreateProducts) {
+                    $CreateProductsRequest = new \Klev\MailchimpEC\Request\CreateProductsRequest();
+                    $result = $CreateProductsRequest->request($data_CreateProducts);
+
+                    if (!isset($result['status'])) {
+                        return $result;
+                    } else {
+                        throw new MailchimpECException(json_encode($result));
+                    }
+                }
+
+
             }
 
         } catch (MailchimpECException $e) {

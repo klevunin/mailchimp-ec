@@ -32,7 +32,7 @@ class DeleteProductsRequest implements MailchimpECМethod
 
             $result = $MailChimp->delete("/ecommerce/stores/" . STORE_ID . "/products/" . $path['product_id']);
 
-            if (!isset($result['status'])) {
+            if ((!isset($result['status'])) OR ($result['status'] == 404)) {
                 return $result;
             } else {
                 throw new MailchimpECException(json_encode($result));

@@ -24,7 +24,7 @@ class EditCartsPrepareRequest implements MailchimpECМethod
             }
 
             if (!isset($path['cart_id'])) {
-                $path['cart_id'] = $data['cart_id'];
+                $path['cart_id'] = $data['id'];
             }
 
             if (!isset($data)) {
@@ -32,22 +32,17 @@ class EditCartsPrepareRequest implements MailchimpECМethod
             }
 
             $MailChimp = new MailChimp(API_KEY_MAILCHIMP);
-
             $result = $MailChimp->patch("/ecommerce/stores/" . STORE_ID . "/carts/" . $path['cart_id'], $data);
-
 
             if ((isset($result['id'])) AND ($result['id'] == $data['id'])) {
                 return json_encode($result);
-            } elseif ($result['status'] == 405) {
+            } else {
                 $CreateCarts = new \Klev\MailchimpEC\Prepare\CreateCartsPrepare();
                 $data_CreateCarts = $CreateCarts->prepareRequest($data);
 
                 if ($data_CreateCarts) {
                     $CreateOrderRequest = new \Klev\MailchimpEC\Request\CreateCartsRequest();
                     $result = $CreateOrderRequest->request($data_CreateCarts);
-
-
-                    return json_encode($result);
 
                     if ((isset($result['id'])) AND ($result['id'] == $data['id'])) {
                         return json_encode($result);
