@@ -32,10 +32,10 @@ class CreateCartsRequest implements MailchimpECМethod
 
             $result = $MailChimp->post("/ecommerce/stores/" . STORE_ID . "/carts",$data);
 
-            if ((isset($result['id'])) AND ($result['id'] == $data['id'])) {
+            if (!isset($result['status'])) {
                 return $result;
             } else {
-                throw new MailchimpECException(json_encode($result));
+                throw new MailchimpECException(json_encode($result).'--'.$path['cart_id'].'--'.$result['status']);
             }
 
         } catch (MailchimpECException $e) {

@@ -8,3 +8,8 @@ config
 config/
 test
 test/
+tests
+tests/
+src
+src/
+phpunit.xml

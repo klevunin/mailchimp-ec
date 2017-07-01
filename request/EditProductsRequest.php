@@ -31,7 +31,7 @@ class EditProductsRequest implements MailchimpECМethod
 
             $result = $MailChimp->patch("/ecommerce/stores/" . STORE_ID . "/products/" . $path['product_id'],$data);
 
-            if (!isset($result['status'])) {
+            if ((isset($result['id'])) AND ($result['id'] == $data['id'])) {
                 return $result;
             } else {
 
@@ -42,7 +42,7 @@ class EditProductsRequest implements MailchimpECМethod
                     $CreateProductsRequest = new \Klev\MailchimpEC\Request\CreateProductsRequest();
                     $result = $CreateProductsRequest->request($data_CreateProducts);
 
-                    if (!isset($result['status'])) {
+                    if ((isset($result['id'])) AND ($result['id'] == $data['id'])) {
                         return $result;
                     } else {
                         throw new MailchimpECException(json_encode($result));

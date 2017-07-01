@@ -57,6 +57,11 @@ class CreateOrderPrepare implements MailchimpECPrepare
                 throw new MailchimpECException('ERROR: order_total');
             }
 
+            if (!isset($data['processed_at_foreign'])) {
+                $data['processed_at_foreign'] = date("c",time());
+            }
+
+
             if ((!isset($data['lines'])) OR (!is_array($data['lines']))) {
                 throw new MailchimpECException('ERROR: lines');
             }
