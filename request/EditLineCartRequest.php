@@ -1,13 +1,13 @@
 <?php
 
+
 namespace Klev\MailchimpEC\Request;
 
 use \DrewM\MailChimp\MailChimp;
 use \Klev\MailchimpEC\MyInterface\MailchimpECМethod;
 use \Klev\MailchimpEC\Myexception\MailchimpECException;
 
-
-class EditLineOrderRequest implements MailchimpECМethod
+class EditLineCartRequest implements MailchimpECМethod
 {
     public function request($data = array(), $path = array())
     {
@@ -44,7 +44,7 @@ class EditLineOrderRequest implements MailchimpECМethod
 
             $MailChimp = new MailChimp(API_KEY_MAILCHIMP);
 
-            $result = $MailChimp->patch("/ecommerce/stores/" . STORE_ID . "/orders/".$path['order_id']. "/lines/".$path['line_id'],$data);
+            $result = $MailChimp->patch("/ecommerce/stores/" . STORE_ID . "/carts/".$path['order_id']. "/lines/".$path['line_id'],$data);
 
 
 
