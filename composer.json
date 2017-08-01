@@ -10,7 +10,6 @@
             "email": "klevunin@gmail.com"
         }
     ],
-    "minimum-stability": "stable",
     "require": {
         "drewm/mailchimp-api": "*",
         "klev/sypex-geo": "*"
